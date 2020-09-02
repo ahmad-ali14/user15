@@ -1,0 +1,8 @@
+{
+  "id": "338df1234598",
+  "msid": ["uk", "eu"],
+  "given-name": ["name"],
+  "family-name": ["family"],
+  "actors": ["actor 1", "actor 2"],
+  "all-abilities": ["ability 1", "ability 2", "ability 3", "ability 4"]
+}
