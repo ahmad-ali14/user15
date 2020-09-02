@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useState } from 'react';
 import './App.css';
+import CreateUser from './components/CreateUser';
+import UserData from "./components/UserData.js";
 
 function App() {
+  const [show, setShow] = useState("add");
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div>
+        <button onClick={() => setShow("view")} >View</button>
+        <button onClick={() => setShow("add")} >Add</button>
+      </div>
+
+      {show === "add" && <CreateUser />}
+      {show === "view" && <UserData />}
     </div>
   );
 }
