@@ -65,7 +65,7 @@ export const CreateUser3 = () => {
                         alert(JSON.stringify(values, null, 2));
                     }, 500)
                 }
-                render={({ values, ...rest }) => (
+                render={({ values, setValues, ...rest }) => (
                     <>
                         {/* {console.log(rest)} */}
 
