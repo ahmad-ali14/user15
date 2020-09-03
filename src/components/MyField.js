@@ -8,19 +8,8 @@ const MyField = ({ fieldName, saveArray }) => {
             <Formik
                 initialValues={{ [fieldName]: ['',] }}
                 onSubmit={values => {
-
                     if (!fieldName || fieldName === "") { return; }
-
-                    console.log("vals", values);
-
-
-                    console.log("....vla", [...Object.values(values)]);
-
-
                     saveArray(...Object.values(values), fieldName)
-                    // setTimeout(() => {
-                    //     alert(JSON.stringify(values, null, 2));
-                    // }, 500)
                 }}
                 render={({ values }) => (
                     <Form>

@@ -3,7 +3,7 @@ import MyField from "./MyField";
 
 
 function CreateUser() {
-    const [fields, setFields] = useState({ id: [] });
+    const [fields, setFields] = useState({ id: "" });
     const [count, setCount] = useState(1);
 
     const addField = () => {
@@ -74,11 +74,25 @@ function CreateUser() {
                     {Object.keys(fields).map((f, i) => {
                         return (
                             <tr key={`${f}.${i}`}>
-                                <td>
-                                    <input onChange={(e) => changeKey(e, i)} defaultValue={f} onKeyUp={(e) => waitAbitOnKeyUp(e, i)} onKeyDown={waitAbitOnKeyDown} />
-                                </td>
-                                <td> <MyField fieldName={f} saveArray={saveArray} /> </td>
-                            </tr>)
+                                {f === "id" ? (
+                                    <>
+                                        <td>
+                                            <input value="id" disabled />
+                                        </td>
+                                        <td>
+                                            <input value={fields["id"]} onChange={(e) => { setFields({ ...fields, id: e.target.value }) }} />
+                                        </td>
+                                    </>
+                                ) : (
+                                        <>
+                                            <td>
+                                                <input onChange={(e) => changeKey(e, i)} defaultValue={f} onKeyUp={(e) => waitAbitOnKeyUp(e, i)} onKeyDown={waitAbitOnKeyDown} />
+                                            </td>
+                                            <td> <MyField fieldName={f} saveArray={saveArray} /> </td>
+                                        </>
+                                    )}
+                            </tr>
+                        )
                     })}
 
                     <tr>
