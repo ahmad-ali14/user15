@@ -56,7 +56,13 @@ export default function CreateUser({ setUser }) {
                             <Form className={classes.form}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
-                                        <Field name="id" as={TextField} error={Boolean(errors.id)} helperText={Boolean(errors.id) ? errors.id : ""} label="User Id" variant="outlined" fullWidth validate={validateId} />
+                                        <Field name="id" as={TextField}
+                                            error={Boolean(errors.id)}
+                                            helperText={Boolean(errors.id) ? errors.id : ""}
+                                            label="User Id"
+                                            variant="outlined"
+                                            fullWidth
+                                            validate={validateId} />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <OtherFields values={values} />
