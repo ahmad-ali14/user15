@@ -3,11 +3,7 @@ import Avatar from '@material-ui/core/Avatar';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-import Link from '@material-ui/core/Link';
 import Grid from '@material-ui/core/Grid';
-import Box from '@material-ui/core/Box';
 import EmojiPeopleIcon from '@material-ui/icons/EmojiPeople';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,12 +11,10 @@ import Container from '@material-ui/core/Container';
 import HighlightOffIcon from '@material-ui/icons/HighlightOff';
 import AddBoxIcon from '@material-ui/icons/AddBox';
 import RemoveIcon from '@material-ui/icons/Remove';
-
+import { IconButton } from '@material-ui/core';
 import { Field, FieldArray, Form, Formik } from 'formik';
 
-import { Card, CardActions, CardContent, CardHeader, IconButton } from '@material-ui/core';
-import AddOutlinedIcon from '@material-ui/icons/AddOutlined';
-import DeleteIcon from '@material-ui/icons/Delete';
+
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -42,11 +36,10 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export default function SignUp() {
+export default function CreateUser({ setUser }) {
     const classes = useStyles();
 
     const handleSubmit = async (values, { setSubmitting, resetForm }) => {
-        console.log(values);
         const result = {
             id: values.id
         };
@@ -58,7 +51,8 @@ export default function SignUp() {
         })
 
         setSubmitting(false);
-        alert(JSON.stringify(result, null, 2));
+        // alert(JSON.stringify(result, null, 2));
+        setUser(result)
         resetForm();
     };
     const handleInsertObject = (pushFunc) => {
@@ -75,6 +69,14 @@ export default function SignUp() {
         ]
     };
 
+    const validateId = (value) => {
+        let error;
+        if (!value) {
+            error = "Id Field Can't be Empty";
+        }
+        return error;
+    }
+
     return (
         <Container component="main" maxWidth="md">
             <CssBaseline />
@@ -87,12 +89,12 @@ export default function SignUp() {
         </Typography>
 
                 <Formik initialValues={initialValues} onSubmit={handleSubmit}>
-                    {({ values, isSubmitting }) => (
+                    {({ values, isSubmitting, errors, }) => (
                         <>
                             <Form className={classes.form}>
                                 <Grid container spacing={2}>
                                     <Grid item xs={12}>
-                                        <Field name="id" as={TextField} label="User Id" variant="outlined" fullWidth />
+                                        <Field name="id" as={TextField} error={Boolean(errors.id)} helperText={Boolean(errors.id) ? errors.id : ""} label="User Id" variant="outlined" fullWidth validate={validateId} />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <FieldArray name="other-fields">
@@ -102,7 +104,7 @@ export default function SignUp() {
 
                                                     {values['other-fields'].length > 0 &&
                                                         values['other-fields'].map((bo, index) => (
-                                                            <>
+                                                            <React.Fragment key={`other-fields-${index}`}>
                                                                 <Grid container spacing={2} >
                                                                     <Grid item xs={12} sm={6}>
                                                                         <Field
@@ -111,6 +113,7 @@ export default function SignUp() {
                                                                             label="Field Name"
                                                                             variant="outlined"
                                                                             fullWidth
+
                                                                         />
                                                                         <Button
                                                                             color="secondary"
@@ -191,7 +194,7 @@ export default function SignUp() {
 
 
 
-                                                            </>
+                                                            </React.Fragment>
                                                         ))}
 
                                                     <Grid container spacing={2}>
